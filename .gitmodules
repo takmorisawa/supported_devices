@@ -1,0 +1,3 @@
+[submodule "auto_gen"]
+	path = auto_gen
+	url = https://github.com/takmorisawa/auto_gen
