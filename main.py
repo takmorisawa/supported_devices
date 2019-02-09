@@ -6,13 +6,13 @@ import pandas as pd
 import traceback
 import re
 
-sys.path.append("../../")
-import scrape
-import crowl
-import scrapeTable
-import diff
-import match
-import backup
+#sys.path.append("../../")
+import auto_gen.scrape as scrape
+import auto_gen.crowl as crowl
+import auto_gen.scrapeTable as scrapeTable
+import auto_gen.diff as diff
+import auto_gen.match as match
+import auto_gen.backup as backup
 
 import mvno.ymobile.postprocess as yp
 import mvno.biglobe.postprocess as bp
@@ -28,12 +28,13 @@ import mvno.nifmo.postprocess as np
 
 import mvno.linemobile.genConf as genConf
 
+root=os.path.dirname(os.path.abspath(__file__))
 
 # tidがここでは未定義なので注意
 pipelines={
     "ymobile":[
-        lambda x:crowl.crowl("mvno/{0}/crowl.config".format(tid)),
-        lambda x:scrape.scrape("mvno/{0}/scrape.config".format(tid)),
+        lambda x:crowl.crowl(root,"mvno/{0}/crowl.config".format(tid)),
+        lambda x:scrape.scrape(root,"mvno/{0}/scrape.config".format(tid)),
         lambda x:diff.diff(
                 "mvno/{0}/tmp/csv/devices_{0}-scraped.csv".format(tid),
                 "mvno/{0}/current/csv/devices_{0}-scraped.csv".format(tid),
@@ -43,8 +44,8 @@ pipelines={
                 "mvno/{0}/current".format(tid)),
         lambda x:yp.postprocess()],
     "biglobe":[
-        lambda x:crowl.crowl("mvno/{0}/crowl.config".format(tid)),
-        lambda x:scrape.scrape("mvno/{0}/scrape.config".format(tid)),
+        lambda x:crowl.crowl(root,"mvno/{0}/crowl.config".format(tid)),
+        lambda x:scrape.scrape(root,"mvno/{0}/scrape.config".format(tid)),
         lambda x:diff.diff(
                 "mvno/{0}/tmp/csv/devices_{0}-scraped.csv".format(tid),
                 "mvno/{0}/current/csv/devices_{0}-scraped.csv".format(tid),
@@ -54,8 +55,8 @@ pipelines={
                 "mvno/{0}/current".format(tid)),
         lambda x:bp.postprocess()],
     "uq":[
-        lambda x:crowl.crowl("mvno/{0}/crowl.config".format(tid)),
-        lambda x:scrape.scrape("mvno/{0}/scrape.config".format(tid)),
+        lambda x:crowl.crowl(root,"mvno/{0}/crowl.config".format(tid)),
+        lambda x:scrape.scrape(root,"mvno/{0}/scrape.config".format(tid)),
         lambda x:diff.diff(
                 "mvno/{0}/tmp/csv/devices_{0}-scraped.csv".format(tid),
                 "mvno/{0}/current/csv/devices_{0}-scraped.csv".format(tid),
@@ -65,8 +66,8 @@ pipelines={
                 "mvno/{0}/current".format(tid)),
         lambda x:up.postprocess()],
     "mineo":[
-        lambda x:crowl.crowl("mvno/{0}/crowl.config".format(tid)),
-        lambda x:scrape.scrape("mvno/{0}/scrape.config".format(tid)),
+        lambda x:crowl.crowl(root,"mvno/{0}/crowl.config".format(tid)),
+        lambda x:scrape.scrape(root,"mvno/{0}/scrape.config".format(tid)),
         lambda x:diff.diff(
                 "mvno/{0}/tmp/csv/devices_{0}-scraped.csv".format(tid),
                 "mvno/{0}/current/csv/devices_{0}-scraped.csv".format(tid),
@@ -76,11 +77,11 @@ pipelines={
                 "mvno/{0}/current".format(tid)),
         lambda x:mp.postprocess()],
     "linemobile":[
-        lambda x:crowl.crowl("mvno/{0}/crowl_mk.config".format(x)),
-        lambda x:scrape.scrape("mvno/{0}/scrape_mk.config".format(x)),
-        lambda x:genConf.genConf("tmp/csv/maker-scraped.csv","crowl.config"),
-        lambda x:crowl.crowl("mvno/{0}/crowl.config".format(x)),
-        lambda x:scrape.scrape("mvno/{0}/scrape.config".format(x)),
+        lambda x:crowl.crowl(root,"mvno/{0}/crowl_mk.config".format(x)),
+        lambda x:scrape.scrape(root,"mvno/{0}/scrape_mk.config".format(x)),
+        lambda x:genConf.genConf(root,"mvno/linemobile/tmp/csv/maker-scraped.csv","mvno/linemobile/crowl.config"),
+        lambda x:crowl.crowl(root,"mvno/{0}/crowl.config".format(x)),
+        lambda x:scrape.scrape(root,"mvno/{0}/scrape.config".format(x)),
         lambda x:diff.diff(
                 "mvno/{0}/tmp/csv/devices_{0}-scraped.csv".format(x),
                 "mvno/{0}/current/csv/devices_{0}-scraped.csv".format(x),
@@ -90,8 +91,8 @@ pipelines={
                 "mvno/{0}/current".format(x)),
         lambda x:lp.postprocess()],
     "ocn":[
-        lambda x:crowl.crowl("mvno/{0}/crowl.config".format(tid)),
-        lambda x:scrape.scrape("mvno/{0}/scrape.config".format(tid)),
+        lambda x:crowl.crowl(root,"mvno/{0}/crowl.config".format(tid)),
+        lambda x:scrape.scrape(root,"mvno/{0}/scrape.config".format(tid)),
         lambda x:diff.diff(
                 "mvno/{0}/tmp/csv/devices_{0}-scraped.csv".format(tid),
                 "mvno/{0}/current/csv/devices_{0}-scraped.csv".format(tid),
@@ -101,8 +102,8 @@ pipelines={
                 "mvno/{0}/current".format(tid)),
         lambda x:op.postprocess()],
     "rakuten":[
-        lambda x:crowl.crowl("mvno/{0}/crowl.config".format(tid)),
-        lambda x:scrape.scrape("mvno/{0}/scrape.config".format(tid)),
+        lambda x:crowl.crowl(root,"mvno/{0}/crowl.config".format(tid)),
+        lambda x:scrape.scrape(root,"mvno/{0}/scrape.config".format(tid)),
         lambda x:diff.diff(
                 "mvno/{0}/tmp/csv/devices_{0}-scraped.csv".format(tid),
                 "mvno/{0}/current/csv/devices_{0}-scraped.csv".format(tid),
@@ -112,8 +113,8 @@ pipelines={
                 "mvno/{0}/current".format(tid)),
         lambda x:rp.postprocess()],
     "iij":[
-        lambda x:crowl.crowl("mvno/{0}/crowl.config".format(tid)),
-        lambda x:scrape.scrape("mvno/{0}/scrape.config".format(tid)),
+        lambda x:crowl.crowl(root,"mvno/{0}/crowl.config".format(tid)),
+        lambda x:scrape.scrape(root,"mvno/{0}/scrape.config".format(tid)),
         lambda x:diff.diff(
                 "mvno/{0}/tmp/csv/devices_{0}-scraped.csv".format(tid),
                 "mvno/{0}/current/csv/devices_{0}-scraped.csv".format(tid),
@@ -123,9 +124,9 @@ pipelines={
                 "mvno/{0}/current".format(tid)),
         lambda x:ip.postprocess()],
     "qt":[
-        lambda x:crowl.crowl("mvno/{0}/crowl.config".format(tid)),
-        lambda x:scrape.scrape("mvno/{0}/scrape.config".format(tid)),
-        lambda x:scrape.scrape("mvno/{0}/scrape_mk.config".format(tid)),
+        lambda x:crowl.crowl(root,"mvno/{0}/crowl.config".format(tid)),
+        lambda x:scrape.scrape(root,"mvno/{0}/scrape.config".format(tid)),
+        lambda x:scrape.scrape(root,"mvno/{0}/scrape_mk.config".format(tid)),
         lambda x:diff.diff(
                 "mvno/{0}/tmp/csv/devices_{0}-scraped.csv".format(tid),
                 "mvno/{0}/current/csv/devices_{0}-scraped.csv".format(tid),
@@ -135,8 +136,8 @@ pipelines={
                 "mvno/{0}/current".format(tid)),
         lambda x:qp.postprocess()],
     "dmm":[
-        lambda x:crowl.crowl("mvno/{0}/crowl.config".format(tid)),
-        lambda x:scrapeTable.scrapeTable("mvno/{0}/scrape.config".format(tid)),
+        lambda x:crowl.crowl(root,"mvno/{0}/crowl.config".format(tid)),
+        lambda x:scrapeTable.scrapeTable(root,"mvno/{0}/scrape.config".format(tid)),
         lambda x:diff.diff(
                 "mvno/{0}/tmp/csv/devices_{0}-scraped.csv".format(tid),
                 "mvno/{0}/current/csv/devices_{0}-scraped.csv".format(tid),
@@ -146,8 +147,8 @@ pipelines={
                 "mvno/{0}/current".format(tid)),
         lambda x:dp.postprocess()],
     "nifmo":[
-        lambda x:crowl.crowl("mvno/{0}/crowl.config".format(tid)),
-        lambda x:scrapeTable.scrapeTable("mvno/{0}/scrape.config".format(tid)),
+        lambda x:crowl.crowl(root,"mvno/{0}/crowl.config".format(tid)),
+        lambda x:scrapeTable.scrapeTable(root,"mvno/{0}/scrape.config".format(tid)),
         lambda x:diff.diff(
                 "mvno/{0}/tmp/csv/devices_{0}-scraped.csv".format(tid),
                 "mvno/{0}/current/csv/devices_{0}-scraped.csv".format(tid),
@@ -194,46 +195,49 @@ def execute_unit(tid,pipeline,results):
             #各ステージの処理でFalseを返したら以降のパイプラン処理をキャンセルする
             if results[tid]==False:
                 return False
-           
+
     return True # 全プロセス正常終了
 
 if __name__=="__main__":
 
     root=os.path.dirname(os.path.abspath(__file__))
-    
+
     # ■■■単体処理■■■
     results={}
     t_list=[]
-    
+
     # 個別に実行する場合は必ず変数tidを定義すること
     #tid="ymobile"
     #execute_unit(tid,pipelines[tid],results)
+
+    # debug用フィルタ
+    #pipelines={k:v for k,v in pipelines.items() if k in ["linemobile","dmm","nifmo"]}
     
     for tid,pipeline in pipelines.items():
-        #execute_unit(tid,pipeline,results)
-        
+        execute_unit(tid,pipeline,results)
+
         ## マルチスレッドの場合
         #t_list.append(threading.Thread(target=execute_unit,args=[tid,pipeline,results]))
         #t_list[-1].start()
         pass
-        
+
     #for t in t_list:
     #    t.join()
-    
+
     print(results)
 
     # ■■■複合処理■■■
-        
+
     # マスターDB
-    df_master=pd.read_csv("kakaku/csv/devices_kakaku-scraped-edited.csv",index_col=0)
+    #df_master=pd.read_csv("kakaku/csv/devices_kakaku-scraped-edited.csv",index_col=0)
     # mvnoDBのリスト
     df_list=[pd.read_csv(file_path[0],index_col=0).fillna("") for file_path in path_list]
 
     # 辞書を入力
     with open("dic/dic_carrier.json","r",encoding="utf-8") as f:
-        match.dic_carrier=json.load(f)   
+        match.dic_carrier=json.load(f)
     with open("dic/dic_maker.json","r",encoding="utf-8") as f:
-        match.dic_maker=json.load(f)    
+        match.dic_maker=json.load(f)
     with open("dic/dic_tethering.json","r",encoding="utf-8") as f:
         match.dic_tether=json.load(f)
     with open("dic/dic_unlock.json","r",encoding="utf-8") as f:
@@ -244,7 +248,7 @@ if __name__=="__main__":
         match.dic_type=json.load(f)
     with open("dic/dic_maker.json","r",encoding="utf-8") as f:
         match.dic_maker=json.load(f)
-        
+
     # 新規項目を確認
     for column, dic in zip(
             ["carrier","maker","tethering","sim","unlock","device_type"],
@@ -252,7 +256,7 @@ if __name__=="__main__":
         print("\n{0}初登場：".format(column))
         item_set=match.get_set(df_list,column)
         match.get_new(dic,item_set)
-        
+
     # 表記揺れ解消
     for df,name in zip(df_list,[item[1] for item in path_list]):
         print("replacing device type...{0}".format(name))
@@ -260,7 +264,7 @@ if __name__=="__main__":
             df["device_type"]=[match.get_first(t,match.dic_type) for t in df["device_type"]]
         else:
             df["device_type"]=""
-        
+
     # 保存
     for df,name in zip(df_list,[item[1] for item in path_list]):
         df.to_csv(os.path.join(root,"csv/mvno/devices_{0}.csv").format(name))
@@ -278,15 +282,14 @@ if __name__=="__main__":
     #for df,name in zip(df_list,name_list):
     #    print(name)
     #    print(df.columns)
- 
+
     #print(df_list[0].head())
-       
+
     # マッチング
     #match.match_to_dflist(df_master,df_list,name_list,"csv/")
-    
+
     # 連結
     match.joinMVNO(df_list,[item[1] for item in path_list],"csv/mvno_join.csv")
 
     # 辞書作成
     #dic=match.get_dict(df_list[4],df_list,"device_type")
-    

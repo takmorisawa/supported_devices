@@ -10,14 +10,14 @@ str2="""
     "target_xpath":"",
     "ending_url":"",
     "render_js":1,
-    "save_dir":"projects/support_devices/mvno/linemobile/tmp/html",
+    "save_dir":"mvno/linemobile/tmp/html",
     "morebutton_xpath":"//p[contains(@class,'FnMoreList')]"
 }
 """
 
-def genConf(config_file_path,out_file_path):
+def genConf(root,config_file_path,out_file_path):
     
-    root=os.path.dirname(os.path.abspath(__file__))
+    #root=os.path.dirname(os.path.abspath(__file__))
     
     df=pd.read_csv(os.path.join(root,config_file_path),index_col=0)
     
