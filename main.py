@@ -13,6 +13,7 @@ import auto_gen.scrapeTable as scrapeTable
 import auto_gen.diff as diff
 import auto_gen.match as match
 import auto_gen.backup as backup
+import auto_gen.arrange as arrange
 
 import mvno.ymobile.postprocess as yp
 import mvno.biglobe.postprocess as bp
@@ -25,8 +26,6 @@ import mvno.iij.postprocess as ip
 import mvno.qt.postprocess as qp
 import mvno.dmm.postprocess as dp
 import mvno.nifmo.postprocess as np
-
-import mvno.linemobile.genConf as genConf
 
 root=os.path.dirname(os.path.abspath(__file__))
 
@@ -77,9 +76,6 @@ pipelines={
                 "mvno/{0}/current".format(tid)),
         lambda x:mp.postprocess()],
     "linemobile":[
-        lambda x:crowl.crowl(root,"mvno/{0}/crowl_mk.config".format(x)),
-        lambda x:scrape.scrape(root,"mvno/{0}/scrape_mk.config".format(x)),
-        lambda x:genConf.genConf(root,"mvno/linemobile/tmp/csv/maker-scraped.csv","mvno/linemobile/crowl.config"),
         lambda x:crowl.crowl(root,"mvno/{0}/crowl.config".format(x)),
         lambda x:scrape.scrape(root,"mvno/{0}/scrape.config".format(x)),
         lambda x:diff.diff(
@@ -148,7 +144,7 @@ pipelines={
         lambda x:dp.postprocess()],
     "nifmo":[
         lambda x:crowl.crowl(root,"mvno/{0}/crowl.config".format(tid)),
-        lambda x:scrapeTable.scrapeTable(root,"mvno/{0}/scrape.config".format(tid)),
+        lambda x:scrape.scrape(root,"mvno/{0}/scrape.config".format(tid)),
         lambda x:diff.diff(
                 "mvno/{0}/tmp/csv/devices_{0}-scraped.csv".format(tid),
                 "mvno/{0}/current/csv/devices_{0}-scraped.csv".format(tid),
@@ -207,12 +203,12 @@ if __name__=="__main__":
     t_list=[]
 
     # 個別に実行する場合は必ず変数tidを定義すること
-    #tid="ymobile"
+    #tid="nifmo"
     #execute_unit(tid,pipelines[tid],results)
 
     # debug用フィルタ
     #pipelines={k:v for k,v in pipelines.items() if k in ["linemobile","dmm","nifmo"]}
-    
+
     for tid,pipeline in pipelines.items():
         execute_unit(tid,pipeline,results)
 
@@ -225,6 +221,12 @@ if __name__=="__main__":
     #    t.join()
 
     print(results)
+
+    # 置換
+    # 全角スペース、ダブルクォーテーション、カンマ
+    keywords={"　":" ","\"":"",",":""}
+    for path,name in path_list:
+        arrange.relpace_csv_contents(path,path,keywords)
 
     # ■■■複合処理■■■
 
