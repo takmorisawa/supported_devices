@@ -4,9 +4,9 @@ import re
 
 def postprocess():
 
-    PLAN_NAME_DOCOMO=""
-    PLAN_NAME_AU=""
-    PLAN_NAME_SOFTBANK=""
+    PLAN_NAME_DOCOMO="Dプラン"
+    PLAN_NAME_AU="Aプラン"
+    PLAN_NAME_SOFTBANK="Sプラン"
 
     current_dir=os.path.dirname(os.path.abspath(__file__))
     print("processing...{0}".format(current_dir))
@@ -23,12 +23,15 @@ def postprocess():
         col["carrier"]=m.groups()[0].strip() if m else col["carrier"]
         col["model"]=m.groups()[1].strip() if m else ""
 
+        m=re.match("(.+)、.+",col["maker"])
+        col["maker"]=m.groups()[0].strip() if m else col["maker"]
+
         # planの振り分け
-        if col["plan"]=="Dプラン":
+        if col["plan"]==PLAN_NAME_DOCOMO:
             df_edited=df_edited.append(col,ignore_index=True)
-        elif col["plan"]=="Aプラン":
+        elif col["plan"]==PLAN_NAME_AU:
             dfA_edited=dfA_edited.append(col,ignore_index=True)
-        elif col["plan"]=="Sプラン":
+        elif col["plan"]==PLAN_NAME_SOFTBANK:
             dfS_edited=dfS_edited.append(col,ignore_index=True)
 
     df_edited.index.name="id"
