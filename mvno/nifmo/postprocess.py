@@ -12,10 +12,9 @@ def postprocess():
 
     for idx,col in df.iterrows():
 
-        tmp_name=col["name"].replace("\n","").replace("™","")
-
-        m=re.match(".*機種名：\t([^\t]+).*",tmp_name)
-        col["name"]=m.groups()[0].strip() if m else ""
+        m=re.match("(.+)　(.+)",col["name"])
+        col["name"]=m.groups()[0].strip() if m else col["name"]
+        col["model"]=m.groups()[1].strip() if m else ""
 
         m=re.match("(.+)／(.+)",col["sim1"])
         col["sim1"]=m.groups()[0].strip() if m else col["sim1"]
