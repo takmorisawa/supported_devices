@@ -12,6 +12,7 @@ def postprocess():
     df=df.rename(columns={"sim":"sim1"})
     dfD_edited=pd.DataFrame()
     dfS_edited=pd.DataFrame()
+    dfA_edited=pd.DataFrame()
 
     dic_mark={
             "ExImg ExOk":"◯",
@@ -43,11 +44,15 @@ def postprocess():
             dfD_edited=dfD_edited.append(col,ignore_index=True)
         if col["plan"]=="ソフトバンク回線":
             dfS_edited=dfS_edited.append(col,ignore_index=True)
+        if col["plan"]=="au回線":
+            dfA_edited=dfA_edited.append(col,ignore_index=True)
 
     dfD_edited.index.name="id"
     dfD_edited.to_csv(os.path.join(current_dir,"current/csv/devices_linemobileD-scraped-edited.csv"))
     dfS_edited.index.name="id"
     dfS_edited.to_csv(os.path.join(current_dir,"current/csv/devices_linemobileS-scraped-edited.csv"))
+    dfA_edited.index_name="id"
+    dfA_edited.to_csv(os.path.join(current_dir,"current/csv/devices_linemobileA-scraped-edited.csv"))
 
 
 if __name__ == '__main__':

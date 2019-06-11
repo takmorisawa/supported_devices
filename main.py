@@ -168,6 +168,7 @@ path_list=[
         ("mvno/iij/current/csv/devices_iijD-scraped-edited.csv","IIJmio_d"),
         ("mvno/iij/current/csv/devices_iijA-scraped-edited.csv","IIJmio_a"),
         ("mvno/linemobile/current/csv/devices_linemobileD-scraped-edited.csv","linemobile_d"),
+        ("mvno/linemobile/current/csv/devices_linemobileA-scraped-edited.csv","linemobile_a"),
         ("mvno/linemobile/current/csv/devices_linemobileS-scraped-edited.csv","linemobile_s"),
         ("mvno/biglobe/current/csv/devices_biglobeD-scraped-edited.csv","biglobe_d"),
         ("mvno/biglobe/current/csv/devices_biglobeA-scraped-edited.csv","biglobe_a"),
