@@ -4,9 +4,9 @@ import re
 
 def postprocess():
 
-    PLAN_NAME_DOCOMO="Dプラン"
-    PLAN_NAME_AU="Aプラン"
-    PLAN_NAME_SOFTBANK="Sプラン"
+    PLAN_NAME_DOCOMO="ドコモプラン"
+    PLAN_NAME_AU="auプラン"
+    PLAN_NAME_SOFTBANK="ソフトバンクプラン"
 
     current_dir=os.path.dirname(os.path.abspath(__file__))
     print("processing...{0}".format(current_dir))
@@ -23,8 +23,10 @@ def postprocess():
         col["carrier"]=m.groups()[0].strip() if m else col["carrier"]
         col["model"]=m.groups()[1].strip() if m else ""
 
-        m=re.match("(.+)、.+",col["maker"])
+        # plan情報からメーカーを分離
+        m=re.match("(.+)、(.+)",col["plan"])
         col["maker"]=m.groups()[0].strip() if m else col["maker"]
+        col["plan"]=m.groups()[1].strip() if m else col["plan"]
 
         # planの振り分け
         if col["plan"]==PLAN_NAME_DOCOMO:
