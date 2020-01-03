@@ -2,7 +2,8 @@
     "標準": [
         "標準",
         "標準SIM",
-        "マルチSIM（標準サイズ）"
+        "マルチSIM（標準サイズ）",
+        "標準SIM\\xa0x\\xa02"
     ],
     "micro": [
         "マイクロ",
@@ -13,7 +14,8 @@
         "MicroSIM",
         "micro",
         "マルチSIM（micro）",
-        "マルチSIM（microサイズ）"
+        "マルチSIM（microサイズ）",
+        "microSIM\\xa0x\\xa02"
     ],
     "nano": [
         "ナノ",
@@ -25,7 +27,8 @@
         "マルチSIM(nano)",
         "マルチSIM（nano）",
         "nanoSIM（専用）",
-        "マルチSIM（nanoサイズ）"
+        "マルチSIM（nanoサイズ）",
+        "nanoSIM\\xa0x\\xa02"
     ],
     "au VoLTE(micro)": [
         "au VoLTE(micro)",
