@@ -18,6 +18,9 @@ def postprocess():
             "ExImg ExOk":"◯",
             "ExImg ExNg":"×"}
 
+    for item in df.items():
+        df[item[0]]=[str.replace("\\n","").replace("['","").replace("']","").strip() for str in item[1]]
+
     for idx,col in df.iterrows():
 
         col["data"]=dic_mark[col["data"]]

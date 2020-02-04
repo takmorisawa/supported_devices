@@ -109,8 +109,8 @@ pipelines={
                 "mvno/{0}/current".format(tid)),
         lambda x:rp.postprocess()],
     "iij":[
-        lambda x:crowl.crowl(root,"mvno/{0}/crowl.config".format(tid)),
-        lambda x:scrape.scrape(root,"mvno/{0}/scrape.config".format(tid)),
+        # lambda x:crowl.crowl(root,"mvno/{0}/crowl.config".format(tid)),
+        # lambda x:scrape.scrape(root,"mvno/{0}/scrape.config".format(tid)),
         lambda x:diff.diff(
                 "mvno/{0}/tmp/csv/devices_{0}-scraped.csv".format(tid),
                 "mvno/{0}/current/csv/devices_{0}-scraped.csv".format(tid),
@@ -118,7 +118,8 @@ pipelines={
         lambda x:backup.backup(
                 "mvno/{0}/tmp".format(tid),
                 "mvno/{0}/current".format(tid)),
-        lambda x:ip.postprocess()],
+        lambda x:ip.postprocess()
+        ],
     "qt":[
         lambda x:crowl.crowl(root,"mvno/{0}/crowl.config".format(tid)),
         lambda x:scrape.scrape(root,"mvno/{0}/scrape.config".format(tid)),

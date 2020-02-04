@@ -4,9 +4,9 @@ import re
 
 def postprocess():
 
-    PLAN_NAME_DOCOMO="ドコモプラン"
-    PLAN_NAME_AU="auプラン"
-    PLAN_NAME_SOFTBANK="ソフトバンクプラン"
+    PLAN_NAME_DOCOMO="D"
+    PLAN_NAME_AU="A"
+    PLAN_NAME_SOFTBANK="S"
 
     current_dir=os.path.dirname(os.path.abspath(__file__))
     print("processing...{0}".format(current_dir))
