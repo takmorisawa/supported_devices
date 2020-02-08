@@ -1,4 +1,7 @@
 {
+    "": [
+      ""
+    ],
     "その他メーカー": [
         "Essential phone",
         "Essential Products Inc.",
@@ -27,7 +30,6 @@
         "P-UP",
         "株式会社ピーアップ",
         "ピーアップ",
-        "富士通コネクテッドテクノロジーズ",
         "ワイモバイル",
         "ネクス",
         "Buffalo",
@@ -67,7 +69,8 @@
         "Kaywood-Shokai Co. Ltd.",
         "UMIDIGI",
         "SIRIN LABS",
-        "un.mode"
+        "un.mode",
+        "SIRIN LABS "
     ],
     "Dell": [
         "Dell",
@@ -119,9 +122,6 @@
         "マウスコンピューター",
         "株式会社マウスコンピューター",
         "mouse computer"
-    ],
-    "富士通モバイルコミュニケーションズ": [
-        "Fujitsu Mobile Communications"
     ],
     "VAIO": [
         "VAIO",
@@ -198,7 +198,10 @@
         "富士通株式会社",
         "FUJITSU",
         "Fujitsu",
-        "富士通コネクテッドテクノロジーズ株式会社"
+        "富士通コネクテッドテクノロジーズ株式会社",
+        "Fujitsu Mobile Communications",
+        "FUJITSU CONNECTED TECHNOLOGIES",
+        "富士通コネクテッドテクノロジーズ"
     ],
     "NEC": [
         "NECパーソナルコンピュータ株式会社",
@@ -264,7 +267,8 @@
         "MAYA SYSTEM",
         "FREETEL",
         "プラスワン・マーケティング",
-        "プラスワン・マーケティング株式会社"
+        "プラスワン・マーケティング株式会社",
+        "MAYA SYSTEM "
     ],
     "APPLE": [
         "Apple",

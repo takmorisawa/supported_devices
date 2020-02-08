@@ -13,26 +13,37 @@ def postprocess():
     for idx,col in df.iterrows():
 
         col["org_name"]=col["name"]
+        col["model"]=""
 
         # 余分な文字を切り取る
         m=re.match(".*select_(.+)_contents.*",col["device_type"])
         col["device_type"]=m.groups()[0] if m else col["device_type"]
 
         # キャリアと備考にマッチ
-        m=re.match("\['(.+)', '\((.+)\)', '(.+)'\]",col["name"])
+        m=re.match("\['(.+)', '[\(（](.+版)[\)）]', '(.+)'\]",col["name"])
         col["name"]=m.groups()[0].strip() if m else col["name"]
         col["carrier"]=m.groups()[1].strip() if m else ""
         col["unlock"]=m.groups()[2].strip() if m else ""
 
         # キャリアのみにマッチ
-        m=re.match("\['(.+)', '\((.+)\)'\]",col["name"])
+        m=re.match("\['(.+)', '[\(（](.+版)[\)）]'\]",col["name"])
         col["name"]=m.groups()[0].strip() if m else col["name"]
         col["carrier"]=m.groups()[1].strip() if m else col["carrier"]
 
-        # モデルにマッチ
+        # モデルにマッチ（１）
         m=re.match("\['(.+)\((.+)\)'\]",col["name"])
         col["name"]=m.groups()[0].strip() if m else col["name"]
-        col["model"]=m.groups()[1].strip() if m else ""
+        col["model"]=m.groups()[1].strip() if m else col["model"]
+
+        # モデルにマッチ（２）
+        m=re.match("\['(.+)', '（(.+)）', '（(.+)）.*'\]",col["name"])
+        col["name"]=m.groups()[0].strip() if m else col["name"]
+        col["model"]=m.groups()[1].strip()+"|"+m.groups()[2] if m else col["model"]
+
+        # モデルにマッチ（３）
+        m=re.match("\['(.+)', '(.+)'\]",col["name"])
+        col["name"]=m.groups()[0].strip() if m else col["name"]
+        col["model"]=m.groups()[1].strip() if m else col["model"]
 
         col["name"]=col["name"].strip("\[\]'")
 

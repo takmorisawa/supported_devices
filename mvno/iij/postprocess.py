@@ -24,6 +24,7 @@ def postprocess():
         col["name"]=m.groups()[0] if m else col["name"]
 
         col["name"]=col["name"].replace("\\u2003","")
+        col["maker"]=col["maker"].replace("\u2003","")
 
         # m=re.match("(.+) (.+版)",col["name"])
         # col["name"]=m.groups()[0] if m else col["name"]

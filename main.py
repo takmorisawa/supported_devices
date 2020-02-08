@@ -212,7 +212,7 @@ if __name__=="__main__":
     #pipelines={k:v for k,v in pipelines.items() if k in ["linemobile","dmm","nifmo"]}
 
     for tid,pipeline in pipelines.items():
-        execute_unit(tid,pipeline,results)
+        # execute_unit(tid,pipeline,results)
 
         ## マルチスレッドの場合
         #t_list.append(threading.Thread(target=execute_unit,args=[tid,pipeline,results]))
