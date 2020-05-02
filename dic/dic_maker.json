@@ -70,7 +70,12 @@
         "UMIDIGI",
         "SIRIN LABS",
         "un.mode",
-        "SIRIN LABS "
+        "SIRIN LABS ",
+        "GREEN HOUSE",
+        "セイコーソリューションズ",
+        "株式会社テラ",
+        "IDY",
+        "株式会社FOX"
     ],
     "Dell": [
         "Dell",
@@ -214,7 +219,8 @@
         "NECカシオモバイルコミュニケーションズ",
         "NECモバイルコミュニケーションズ株式会社",
         "NEC CASIO Mobile Communications",
-        "NEC"
+        "NEC",
+        "NECプラットフォームズ?"
     ],
     "クロスリンクマーケティング": [
         "クロスリンクマーケティング",
@@ -280,7 +286,8 @@
         "SONY",
         "Sony Mobile Communications",
         "Sony Ericsson",
-        "Sony"
+        "Sony",
+        "ソニーモバイルコミュニケーションズ?"
     ],
     "サードウェーブデジノス": [
         "サードウェーブデジノス",
@@ -297,5 +304,8 @@
     ],
     "カシオ": [
         "CASIO"
+    ],
+    "Xiaomi": [
+        "Xiaomi"
     ]
 }

@@ -2,6 +2,14 @@ import pandas as pd
 import os
 import re
 
+CARRIER_LIST=[
+    "SIMフリー版",
+    "ドコモ版",
+    "au版",
+    "ソフトバンク版",
+    "ワイモバイル版"
+]
+
 def postprocess():
 
     current_dir=os.path.dirname(os.path.abspath(__file__))
@@ -30,9 +38,9 @@ def postprocess():
         m=re.match(".*SIMロック解除が必要です。.*",col["note"])
         col["unlock"]="必要" if m else ""
 
-        m=re.match("(.+) (.+版)",col["name"])
-        col["name"]=m.groups()[0].strip() if m else col["name"]
-        col["carrier"]=m.groups()[1].strip() if m else ""
+        first = [item for item in CARRIER_LIST if item in col["name"]]
+        col["name"]=col["name"].strip(first[0]).strip() if len(first)>0 else col["name"]
+        col["carrier"] = first[0] if len(first)>0 else ""
 
         m=re.match("(.+)/(.+)",col["sim1"])
         col["sim1"]=m.groups()[0] if m else col["sim1"]

@@ -109,8 +109,8 @@ pipelines={
                 "mvno/{0}/current".format(tid)),
         lambda x:rp.postprocess()],
     "iij":[
-        # lambda x:crowl.crowl(root,"mvno/{0}/crowl.config".format(tid)),
-        # lambda x:scrape.scrape(root,"mvno/{0}/scrape.config".format(tid)),
+        lambda x:crowl.crowl(root,"mvno/{0}/crowl.config".format(tid)),
+        lambda x:scrape.scrape(root,"mvno/{0}/scrape.config".format(tid)),
         lambda x:diff.diff(
                 "mvno/{0}/tmp/csv/devices_{0}-scraped.csv".format(tid),
                 "mvno/{0}/current/csv/devices_{0}-scraped.csv".format(tid),
@@ -134,7 +134,7 @@ pipelines={
         lambda x:qp.postprocess()],
     "dmm":[
         lambda x:crowl.crowl(root,"mvno/{0}/crowl.config".format(tid)),
-        lambda x:scrapeTable.scrapeTable(root,"mvno/{0}/scrape.config".format(tid)),
+        lambda x:scrape.scrape(root,"mvno/{0}/scrape.config".format(tid)),
         lambda x:diff.diff(
                 "mvno/{0}/tmp/csv/devices_{0}-scraped.csv".format(tid),
                 "mvno/{0}/current/csv/devices_{0}-scraped.csv".format(tid),
@@ -212,7 +212,7 @@ if __name__=="__main__":
     #pipelines={k:v for k,v in pipelines.items() if k in ["linemobile","dmm","nifmo"]}
 
     for tid,pipeline in pipelines.items():
-        # execute_unit(tid,pipeline,results)
+        execute_unit(tid,pipeline,results)
 
         ## マルチスレッドの場合
         #t_list.append(threading.Thread(target=execute_unit,args=[tid,pipeline,results]))
