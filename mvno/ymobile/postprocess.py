@@ -7,48 +7,26 @@ def postprocess():
     current_dir=os.path.dirname(os.path.abspath(__file__))
     print("processing...{0}".format(current_dir))
 
-    df=pd.read_csv(os.path.join(current_dir,"current/csv/devices_ymobile-scraped.csv"),index_col=0)
+    df_maker=pd.read_csv(os.path.join(current_dir,"current/csv/devices_ymobile-maker-scraped.csv"),index_col=1)
+
+    df=pd.read_csv(os.path.join(current_dir,"current/csv/devices_ymobile-scraped.csv"),index_col=0,dtype=str)
     df_edited=pd.DataFrame()
 
     for idx,col in df.iterrows():
 
-        col["org_name"]=col["name"]
-        col["model"]=""
+        # maker
+        m=re.match("section-(.+?) .+",col["maker"])
+        col["maker"]=m.groups()[0].strip() if m else col["maker"]
+        key="cat-"+col["maker"]
+        col["maker"]=df_maker.loc[key]["name"] if key in df_maker.index else ""
 
-        # 余分な文字を切り取る
-        m=re.match(".*select_(.+)_contents.*",col["device_type"])
-        col["device_type"]=m.groups()[0] if m else col["device_type"]
-
-        # キャリアと備考にマッチ
-        m=re.match("\['(.+)', '[\(（](.+版)[\)）]', '(.+)'\]",col["name"])
+        # モデルにマッチ（
+        m=re.match("(.+)（(.+)）",col["name"])
         col["name"]=m.groups()[0].strip() if m else col["name"]
-        col["carrier"]=m.groups()[1].strip() if m else ""
-        col["unlock"]=m.groups()[2].strip() if m else ""
-
-        # キャリアのみにマッチ
-        m=re.match("\['(.+)', '[\(（](.+版)[\)）]'\]",col["name"])
-        col["name"]=m.groups()[0].strip() if m else col["name"]
-        col["carrier"]=m.groups()[1].strip() if m else col["carrier"]
-
-        # モデルにマッチ（１）
-        m=re.match("\['(.+)\((.+)\)'\]",col["name"])
-        col["name"]=m.groups()[0].strip() if m else col["name"]
-        col["model"]=m.groups()[1].strip() if m else col["model"]
-
-        # モデルにマッチ（２）
-        m=re.match("\['(.+)', '（(.+)）', '（(.+)）.*'\]",col["name"])
-        col["name"]=m.groups()[0].strip() if m else col["name"]
-        col["model"]=m.groups()[1].strip()+"|"+m.groups()[2] if m else col["model"]
-
-        # モデルにマッチ（３）
-        m=re.match("\['(.+)', '(.+)'\]",col["name"])
-        col["name"]=m.groups()[0].strip() if m else col["name"]
-        col["model"]=m.groups()[1].strip() if m else col["model"]
-
-        col["name"]=col["name"].strip("\[\]'")
+        col["model"]=m.groups()[1].strip() if m else ""
 
         # simの分割
-        m=re.match("(.+)/(.+)",col["sim"])
+        m=re.match("(.+)/(.+)",col["sim"] if type(col["sim"]) is str else "")
         col["sim1"]=m.groups()[0].strip() if m else col["sim"]
         col["sim2"]=m.groups()[1].strip() if m else ""
         col=col.drop("sim")
@@ -56,15 +34,17 @@ def postprocess():
         # 不要な注記を除去
         col["name"]=col["name"].replace("™","")
         col["name"]=col["name"].replace("®","")
-        col["os"]=col["os"].replace("™","")
+        col["os"]=(col["os"] if type(col["os"]) is str else "").replace("™","")
 
-        # タブを置換
-        col["name"]=col["name"].replace("\t"," ")
+        # function
+        dict={"音声通話":"call","SMS":"sms","データ通信":"data","テザリング":"tethering"}
+        for kv in re.findall("'(.+?)：(.*?)'",col["func"]):
+            col[dict[kv[0]]]=kv[1]
 
         # carrierを分割
-        for carrier in col["carrier"].split("/"):
+        for carrier in [item for item in re.findall("'.+?'",col["carrier"]) if item!="'undefined'"]:
             col=col.copy()
-            col["carrier"]=carrier
+            col["carrier"]=carrier.strip("\'")
             df_edited=df_edited.append(col,ignore_index=True)
 
     # カラムの並び替え

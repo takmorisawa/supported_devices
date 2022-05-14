@@ -27,7 +27,7 @@ def postprocess():
         col["name"]=col["name"].replace("\\u2003","")
         col["maker"]=col["maker"].replace("\u2003","")
 
-        m=re.match("(.+)\xa0x\xa02",col["sim"])
+        m=re.match("(.+) x 2",col["sim"])
         col["sim1"]=m.groups()[0] if m else col["sim"]
         col["sim2"]=m.groups()[0] if m else ""
         col=col.drop("sim")

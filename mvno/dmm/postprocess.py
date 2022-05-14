@@ -26,7 +26,7 @@ def postprocess():
         unlocks=re.findall("[^、]+版",m.groups()[0]) if m else []
 
         # simを分離
-        m=re.match("(.+)\t(.+)",row["sim1"])
+        m=re.match("(.+) (.+)",row["sim1"])
         row["sim1"]=m.groups()[0] if m else row["sim1"]
         row["sim2"]=m.groups()[1] if m else ""
 
