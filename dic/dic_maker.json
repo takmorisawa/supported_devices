@@ -25,6 +25,7 @@
         "Unihertz",
         "JENESIS",
         "ジェネシスホールディングス",
+        "jenesis",
         "NuAns",
         "X-RIDE",
         "P-UP",
@@ -75,7 +76,9 @@
         "セイコーソリューションズ",
         "株式会社テラ",
         "IDY",
-        "株式会社FOX"
+        "株式会社FOX",
+        "オウガ・ジャパン",
+        "Rakuten"
     ],
     "Dell": [
         "Dell",
@@ -117,7 +120,8 @@
     ],
     "TCLコミュニケーションテクノロジー": [
         "TCLコミュニケーション",
-        "TCL"
+        "TCL",
+        "TCL Communication"
     ],
     "キャセイトライテック": [
         "キャセイ・トライテック株式会社",
@@ -274,11 +278,12 @@
         "FREETEL",
         "プラスワン・マーケティング",
         "プラスワン・マーケティング株式会社",
-        "MAYA SYSTEM "
+        "FREETEL/MAYASYSTEM"
     ],
     "APPLE": [
         "Apple",
-        "Apple Inc."
+        "Apple Inc.",
+        "APPLE"
     ],
     "SONY": [
         "ソニーモバイルコミュニケーションズ株式会社",
@@ -287,7 +292,8 @@
         "Sony Mobile Communications",
         "Sony Ericsson",
         "Sony",
-        "ソニーモバイルコミュニケーションズ?"
+        "ソニーモバイルコミュニケーションズ?",
+        "Sony mobile communications"
     ],
     "サードウェーブデジノス": [
         "サードウェーブデジノス",
@@ -306,6 +312,8 @@
         "CASIO"
     ],
     "Xiaomi": [
-        "Xiaomi"
+        "Xiaomi",
+        "XIAOMi",
+        "Xiaomi Japan"
     ]
 }

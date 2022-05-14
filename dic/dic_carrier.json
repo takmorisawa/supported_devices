@@ -20,8 +20,6 @@
         "au（SIMロック解除済み）",
         "au販売"
     ],
-    "ワイモバイル": [
-    ],
     "SIMフリー": [
         "simフリー版",
         "SIMフリー",
@@ -56,10 +54,17 @@
     ],
     "Y!mobile": [
         "ワイモバイル版",
-        "Y!mobileブランド端末"
+        "Y!mobileブランド端末",
+        "Y!mobile",
+        "ワイモバイル"
     ],
     "UQ mobile": [
         "UQ mobile端末",
-        "UQ mobile販売"
+        "UQ mobile販売",
+        "UQ"
+    ],
+    "楽天モバイル": [
+      "楽天モバイル",
+      "Rakuten Mobile"
     ]
 }
